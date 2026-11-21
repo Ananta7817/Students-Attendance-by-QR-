@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "279420907127",
+    "firebase_url": "https://students-attendence-by-qr-default-rtdb.firebaseio.com",
+    "project_id": "students-attendence-by-qr",
+    "storage_bucket": "students-attendence-by-qr.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279420907127:android:07d8d99bfcc8f7c7e16072",
+        "android_client_info": {
+          "package_name": "attendance.students.byqr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279420907127-ck8vc1do835oujgsun3h83rbr9cffm59.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzMGONUICaPIYwXpiHzwJenR1Ui5JricE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279420907127-ck8vc1do835oujgsun3h83rbr9cffm59.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

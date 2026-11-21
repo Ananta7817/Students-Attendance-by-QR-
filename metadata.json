@@ -1,0 +1,6 @@
+{
+  "name": "Students Attendance by QR",
+  "description": "Multi-school QR-based student attendance management system with Super Admin, School Admin, and Teacher panels.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

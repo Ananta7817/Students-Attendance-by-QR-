@@ -1,0 +1,60 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isSuperAdmin() {
+      return isSignedIn() && (
+        request.auth.uid == 'Q6vhlqwqAlMvDy4WFhOq9xnjnit1' ||
+        (request.auth.token.email == 'anantabarman.mtb736172@gmail.com' &&
+         request.auth.token.email_verified == true)
+      );
+    }
+
+    function isImageUnder5MB() {
+      return request.resource.size < 5 * 1024 * 1024 &&
+        request.resource.contentType.matches('image/.*');
+    }
+
+    function isDocumentUnder10MB() {
+      return request.resource.size < 10 * 1024 * 1024 &&
+        (request.resource.contentType.matches('application/pdf') ||
+         request.resource.contentType.matches('text/csv') ||
+         request.resource.contentType.matches('application/vnd.*'));
+    }
+
+    // Default deny
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // Tenant-isolated school storage: schools/{schoolId}/(students|teachers|logos|qrCards|reports)/{fileName}
+    match /schools/{schoolId}/students/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isImageUnder5MB();
+    }
+
+    match /schools/{schoolId}/teachers/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isImageUnder5MB();
+    }
+
+    match /schools/{schoolId}/logos/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isImageUnder5MB();
+    }
+
+    match /schools/{schoolId}/qrCards/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && (isImageUnder5MB() || isDocumentUnder10MB());
+    }
+
+    match /schools/{schoolId}/reports/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isDocumentUnder10MB();
+    }
+  }
+}

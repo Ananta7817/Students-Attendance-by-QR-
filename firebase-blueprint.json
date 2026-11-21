@@ -1,0 +1,367 @@
+{
+  "entities": {
+    "SystemAdmin": {
+      "title": "SystemAdmin",
+      "description": "Permanent platform Super Administrator registry.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID of the Super Admin." },
+        "displayName": { "type": "string", "description": "Full display name." },
+        "email": { "type": "string", "format": "email", "description": "Verified admin email." },
+        "role": { "type": "string", "enum": ["SUPER_ADMIN"] },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp (FieldValue.serverTimestamp())." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp (FieldValue.serverTimestamp())." }
+      },
+      "required": ["uid", "displayName", "email", "role", "createdAt", "updatedAt"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Role-based user account for Super Admin, School Admin, Teacher, or Pending School Admin.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "role": { "type": "string", "enum": ["SUPER_ADMIN", "SCHOOL_ADMIN", "TEACHER", "PENDING_ADMIN"] },
+        "schoolId": { "type": "string" },
+        "schoolName": { "type": "string" },
+        "adminUid": { "type": "string" },
+        "inviteId": { "type": "string" },
+        "assignedClassIds": { "type": "array" },
+        "assignedSections": { "type": "array" },
+        "assignedSubjects": { "type": "array" },
+        "photoUrl": { "type": "string" },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "email", "role", "active", "createdAt", "updatedAt"]
+    },
+    "School": {
+      "title": "School",
+      "description": "Registered school tenant isolated by schoolId.",
+      "type": "object",
+      "properties": {
+        "schoolName": { "type": "string" },
+        "schoolCode": { "type": "string" },
+        "headmasterName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "address": { "type": "string" },
+        "villageOrTown": { "type": "string" },
+        "district": { "type": "string" },
+        "state": { "type": "string" },
+        "pinCode": { "type": "string" },
+        "adminUid": { "type": "string" },
+        "memberUids": { "type": "array" },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED", "SUSPENDED"] },
+        "logoUrl": { "type": "string" },
+        "rejectionReason": { "type": "string" },
+        "lastInviteId": { "type": "string" },
+        "parentNotificationsEnabled": { "type": "boolean" },
+        "studentCount": { "type": "integer" },
+        "teacherCount": { "type": "integer" },
+        "classCount": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "schoolName", "schoolCode", "headmasterName", "email", "phone",
+        "address", "villageOrTown", "district", "state", "pinCode",
+        "adminUid", "memberUids", "status", "parentNotificationsEnabled",
+        "studentCount", "teacherCount", "classCount", "createdAt", "updatedAt"
+      ]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Student enrolled in a specific school.",
+      "type": "object",
+      "properties": {
+        "studentIdCode": { "type": "string" },
+        "studentName": { "type": "string" },
+        "fatherName": { "type": "string" },
+        "motherName": { "type": "string" },
+        "dateOfBirth": { "type": "string" },
+        "gender": { "type": "string" },
+        "classId": { "type": "string" },
+        "className": { "type": "string" },
+        "section": { "type": "string" },
+        "rollNumber": { "type": "string" },
+        "address": { "type": "string" },
+        "parentContact": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "admissionDate": { "type": "string" },
+        "status": { "type": "string", "enum": ["ACTIVE", "INACTIVE"] },
+        "qrTokenId": { "type": "string" },
+        "qrVersion": { "type": "integer" },
+        "schoolId": { "type": "string" },
+        "adminUid": { "type": "string" },
+        "memberUids": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "studentIdCode", "studentName", "fatherName", "motherName", "dateOfBirth",
+        "classId", "className", "section", "rollNumber", "address", "parentContact",
+        "admissionDate", "status", "qrTokenId", "qrVersion",
+        "schoolId", "adminUid", "memberUids", "createdAt", "updatedAt"
+      ]
+    },
+    "Teacher": {
+      "title": "Teacher",
+      "description": "Teacher profile assigned to classes and sections within a school.",
+      "type": "object",
+      "properties": {
+        "teacherIdCode": { "type": "string" },
+        "teacherName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "userUid": { "type": "string" },
+        "assignedClassIds": { "type": "array" },
+        "assignedSubjects": { "type": "array" },
+        "assignedSections": { "type": "array" },
+        "joiningDate": { "type": "string" },
+        "active": { "type": "boolean" },
+        "schoolId": { "type": "string" },
+        "adminUid": { "type": "string" },
+        "memberUids": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "teacherIdCode", "teacherName", "email", "phone",
+        "assignedClassIds", "assignedSubjects", "assignedSections",
+        "joiningDate", "active", "schoolId", "adminUid", "memberUids",
+        "createdAt", "updatedAt"
+      ]
+    },
+    "SchoolClass": {
+      "title": "SchoolClass",
+      "description": "Class and sections belonging to a school.",
+      "type": "object",
+      "properties": {
+        "className": { "type": "string" },
+        "sections": { "type": "array" },
+        "classTeacherId": { "type": "string" },
+        "classTeacherName": { "type": "string" },
+        "active": { "type": "boolean" },
+        "schoolId": { "type": "string" },
+        "adminUid": { "type": "string" },
+        "memberUids": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "className", "sections", "active", "schoolId",
+        "adminUid", "memberUids", "createdAt", "updatedAt"
+      ]
+    },
+    "AttendanceRecord": {
+      "title": "AttendanceRecord",
+      "description": "Single student attendance entry per date with deterministic document ID.",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentIdCode": { "type": "string" },
+        "studentName": { "type": "string" },
+        "studentPhotoUrl": { "type": "string" },
+        "classId": { "type": "string" },
+        "className": { "type": "string" },
+        "section": { "type": "string" },
+        "rollNumber": { "type": "string" },
+        "attendanceDate": { "type": "string" },
+        "attendanceTime": { "type": "string" },
+        "status": { "type": "string", "enum": ["PRESENT", "ABSENT", "LATE", "EXCUSED"] },
+        "method": { "type": "string", "enum": ["QR", "MANUAL", "OFFLINE_SYNC"] },
+        "recordedByUid": { "type": "string" },
+        "recordedByName": { "type": "string" },
+        "correctionNote": { "type": "string" },
+        "adminUid": { "type": "string" },
+        "memberUids": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "schoolId", "studentId", "studentIdCode", "studentName", "classId",
+        "className", "section", "rollNumber", "attendanceDate", "attendanceTime",
+        "status", "method", "recordedByUid", "recordedByName",
+        "adminUid", "memberUids", "createdAt", "updatedAt"
+      ]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "School-level notice for teachers and admins.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "category": { "type": "string", "enum": ["GENERAL", "HOLIDAY", "EXAM", "URGENT"] },
+        "authorUid": { "type": "string" },
+        "authorName": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "adminUid": { "type": "string" },
+        "memberUids": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "title", "body", "category", "authorUid", "authorName",
+        "schoolId", "adminUid", "memberUids", "createdAt", "updatedAt"
+      ]
+    },
+    "GlobalAnnouncement": {
+      "title": "GlobalAnnouncement",
+      "description": "Platform-wide announcement published by Super Admin.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "category": { "type": "string", "enum": ["GENERAL", "HOLIDAY", "EXAM", "URGENT"] },
+        "authorUid": { "type": "string" },
+        "authorName": { "type": "string" },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "body", "category", "authorUid", "authorName", "active", "createdAt", "updatedAt"]
+    },
+    "QrToken": {
+      "title": "QrToken",
+      "description": "Signed opaque QR token linked to a student and school.",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "tokenHash": { "type": "string" },
+        "version": { "type": "integer" },
+        "revoked": { "type": "boolean" },
+        "adminUid": { "type": "string" },
+        "memberUids": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "studentId", "schoolId", "tokenHash", "version", "revoked",
+        "adminUid", "memberUids", "createdAt", "updatedAt"
+      ]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Immutable school-level audit record.",
+      "type": "object",
+      "properties": {
+        "action": { "type": "string" },
+        "actorUid": { "type": "string" },
+        "actorName": { "type": "string" },
+        "targetType": { "type": "string" },
+        "targetId": { "type": "string" },
+        "details": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "adminUid": { "type": "string" },
+        "memberUids": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "action", "actorUid", "actorName", "targetType", "targetId",
+        "details", "schoolId", "adminUid", "memberUids", "createdAt"
+      ]
+    },
+    "SystemLog": {
+      "title": "SystemLog",
+      "description": "Immutable platform-level Super Admin audit record.",
+      "type": "object",
+      "properties": {
+        "action": { "type": "string" },
+        "actorUid": { "type": "string" },
+        "actorName": { "type": "string" },
+        "targetType": { "type": "string" },
+        "targetId": { "type": "string" },
+        "details": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["action", "actorUid", "actorName", "targetType", "targetId", "details", "createdAt"]
+    },
+    "TeacherInvite": {
+      "title": "TeacherInvite",
+      "description": "Email-verified teacher invitation for onboarding into a school.",
+      "type": "object",
+      "properties": {
+        "teacherEmail": { "type": "string", "format": "email" },
+        "teacherName": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "schoolName": { "type": "string" },
+        "teacherDocId": { "type": "string" },
+        "adminUid": { "type": "string" },
+        "assignedClassIds": { "type": "array" },
+        "assignedSections": { "type": "array" },
+        "assignedSubjects": { "type": "array" },
+        "status": { "type": "string", "enum": ["PENDING", "ACCEPTED", "REVOKED"] },
+        "acceptedUid": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "teacherEmail", "teacherName", "schoolId", "schoolName",
+        "teacherDocId", "adminUid", "assignedClassIds", "assignedSections",
+        "assignedSubjects", "status", "createdAt", "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/systemAdmins/{uid}": {
+      "schema": { "$ref": "#/entities/SystemAdmin" },
+      "description": "Permanent platform Super Admin registry."
+    },
+    "/users/{uid}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profiles and RBAC role assignments."
+    },
+    "/schools/{schoolId}": {
+      "schema": { "$ref": "#/entities/School" },
+      "description": "Registered schools isolated by schoolId."
+    },
+    "/schools/{schoolId}/students/{studentId}": {
+      "schema": { "$ref": "#/entities/Student" },
+      "description": "Students scoped to a school."
+    },
+    "/schools/{schoolId}/teachers/{teacherId}": {
+      "schema": { "$ref": "#/entities/Teacher" },
+      "description": "Teachers scoped to a school."
+    },
+    "/schools/{schoolId}/classes/{classId}": {
+      "schema": { "$ref": "#/entities/SchoolClass" },
+      "description": "Classes and sections scoped to a school."
+    },
+    "/schools/{schoolId}/attendance/{attendanceId}": {
+      "schema": { "$ref": "#/entities/AttendanceRecord" },
+      "description": "Attendance records scoped to a school with deterministic studentId_date ID."
+    },
+    "/schools/{schoolId}/announcements/{announcementId}": {
+      "schema": { "$ref": "#/entities/Announcement" },
+      "description": "School-level announcements."
+    },
+    "/schools/{schoolId}/qrTokens/{tokenId}": {
+      "schema": { "$ref": "#/entities/QrToken" },
+      "description": "Signed QR code tokens per student."
+    },
+    "/schools/{schoolId}/auditLogs/{logId}": {
+      "schema": { "$ref": "#/entities/AuditLog" },
+      "description": "Immutable school-level audit logs."
+    },
+    "/systemLogs/{logId}": {
+      "schema": { "$ref": "#/entities/SystemLog" },
+      "description": "Immutable platform-wide Super Admin audit logs."
+    },
+    "/globalAnnouncements/{announcementId}": {
+      "schema": { "$ref": "#/entities/GlobalAnnouncement" },
+      "description": "Global platform announcements from Super Admin."
+    },
+    "/teacherInvites/{inviteId}": {
+      "schema": { "$ref": "#/entities/TeacherInvite" },
+      "description": "Verified teacher onboarding invitations."
+    }
+  }
+}

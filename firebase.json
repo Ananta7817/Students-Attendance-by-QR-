@@ -1,0 +1,26 @@
+{
+  "firestore": [
+    {
+      "database": "ai-studio-android-students-4c50967f-0a62-4305-825d-675450fd8d51",
+      "rules": "firestore.rules"
+    }
+  ],
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default"
+    }
+  ],
+  "emulators": {
+    "firestore": {
+      "host": "127.0.0.1",
+      "port": 8085
+    },
+    "ui": {
+      "enabled": false
+    }
+  }
+}

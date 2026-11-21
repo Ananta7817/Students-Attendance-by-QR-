@@ -1,0 +1,21 @@
+# Release Signing Key Information — Students Attendance by QR
+# SECURITY NOTICE: Keep this file and my-upload-key.jks private.
+# Do NOT commit either file to any public repository.
+
+Keystore File      : my-upload-key.jks (project root)
+Keystore Type      : JKS
+Key Alias          : upload
+Store Password     : SaQr2026!ReleaseKey#94
+Key Password       : SaQr2026!ReleaseKey#94
+Validity           : 10,000 days (~27 years)
+Distinguished Name : CN=Students Attendance by QR, OU=Education, O=Ananta Barman, L=Cooch Behar, ST=West Bengal, C=IN
+
+# Release Certificate Fingerprints (for Firebase Console -> Project Settings -> Your apps -> attendance.students.byqr)
+SHA-1   : 09:C2:A1:86:B2:85:49:69:6F:4E:C7:97:A3:EE:63:B0:22:15:EB:27
+SHA-256 : A2:45:CC:D7:29:2E:B0:21:CC:AD:62:89:85:6C:78:5D:B6:32:C5:0C:AA:46:65:61:CA:08:E5:91:0A:1E:CE:9F
+
+# Command used to build the signed release APK:
+# KEYSTORE_PATH="$PWD/my-upload-key.jks" \
+# STORE_PASSWORD="SaQr2026!ReleaseKey#94" \
+# KEY_PASSWORD="SaQr2026!ReleaseKey#94" \
+# gradle :app:assembleRelease
